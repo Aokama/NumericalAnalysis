@@ -23,9 +23,9 @@ Dimension Matrix::get_dimension() {
 
 double Matrix::at(int i, int j) {
     if(!this->get_dimension().include(i, j)){
-        printf("Matrix::at(int, int) caused exception related to illegal arguments.");
+        printf("Matrix::at(int, int) caused exception related to illegal arguments.\n");
         this->get_dimension().show("The Matrix Dimension");
-        printf("This Dimension does not include (%d, %d)", i, j);
+        printf("This Dimension does not include (%d, %d).\n", i, j);
         return 0.0;
     }
     return this->mat_array[i - 1][j - 1];
@@ -33,9 +33,9 @@ double Matrix::at(int i, int j) {
 
 void Matrix::set(int i, int j, double value) {
     if(!this->get_dimension().include(i, j)){
-        printf("Matrix::set(int, int, double) caused exception related to illegal arguments.");
+        printf("Matrix::set(int, int, double) caused exception related to illegal arguments.\n");
         this->get_dimension().show("The Matrix Dimension");
-        printf("This Dimension does not include (%d, %d)", i, j);
+        printf("This Dimension does not include (%d, %d).\n", i, j);
     }
     this->mat_array[i - 1][j - 1] = value;
 }
@@ -50,10 +50,10 @@ void Matrix::scale(double factor) {
 
 Matrix Matrix::operator+(Matrix right) {
     if(!this->dimension.equals_to(right.get_dimension())){
-        printf("Matrix::operator + (Matrix) caused exception related to illegal arguments.");
+        printf("Matrix::operator + (Matrix) caused exception related to illegal arguments.\n");
         this->dimension.show("Left");
         right.get_dimension().show("Right");
-        printf("Wrong dimensions for adding.");
+        printf("Wrong dimensions for adding.\n");
         return Matrix();
     }
     else{
@@ -69,10 +69,10 @@ Matrix Matrix::operator+(Matrix right) {
 
 Matrix Matrix::operator-(Matrix right) {
     if(!this->dimension.equals_to(right.get_dimension())){
-        printf("Matrix::operator + (Matrix) caused exception related to illegal arguments.");
+        printf("Matrix::operator + (Matrix) caused exception related to illegal arguments.\n");
         this->dimension.show("Left");
         right.get_dimension().show("Right");
-        printf("Wrong dimensions for subtracting.");
+        printf("Wrong dimensions for subtracting.\n");
         return Matrix();
     }
     else{
@@ -88,10 +88,10 @@ Matrix Matrix::operator-(Matrix right) {
 
 Vector Matrix::operator*(const Vector& right) {
     if(!this->dimension.can_multiply_from_right(right.get_dimension())){
-        printf("Matrix::operator * (Vector) caused exception related to illegal arguments.");
+        printf("Matrix::operator * (Vector) caused exception related to illegal arguments.\n");
         this->dimension.show("Left");
         right.get_dimension().show("Right");
-        printf("Wrong dimensions for multiplying.");
+        printf("Wrong dimensions for multiplying.\n");
         return Vector();
     }
     else{
@@ -109,10 +109,10 @@ Vector Matrix::operator*(const Vector& right) {
 
 Matrix Matrix::operator*(Matrix right) {
     if(!this->dimension.can_multiply_from_right(right.get_dimension())){
-        printf("Matrix::operator * (Matrix) caused exception related to illegal arguments.");
+        printf("Matrix::operator * (Matrix) caused exception related to illegal arguments.\n");
         this->dimension.show("Left");
         right.get_dimension().show("Right");
-        printf("Wrong dimensions for multiplying.");
+        printf("Wrong dimensions for multiplying.\n");
         return Matrix();
     }
     else{

@@ -9,6 +9,8 @@
 #include "Vector.h"
 #include <vector>
 
+class Vector;
+
 class Matrix {
 private:
     std::vector<std::vector<double>> mat_array;
