@@ -35,6 +35,7 @@ public:
 
     void show2d(const char *name);
     void show4d(const char *name);
+    void show5d(const char *name);
     void show6d(const char *name);
     void show8d(const char *name);
     void show10d(const char *name);

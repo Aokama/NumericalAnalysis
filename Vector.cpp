@@ -30,8 +30,8 @@ Dimension Vector::get_dimension() const {
 }
 
 double Vector::at(int i) const {
-    if(this->dimension.include(i, 1)){
-        printf("Matrix::at(int, int) caused exception related to illegal arguments.\n");
+    if(!this->dimension.include(i, 1)){
+        printf("Vector::at(int) caused exception related to illegal arguments.\n");
         this->get_dimension().show("The Vector Dimension");
         printf("This Dimension does not include (%d, %d).\n", i, 1);
         return 0.0;
@@ -156,7 +156,15 @@ void Vector::show2d(const char *name) {
 void Vector::show4d(const char *name) {
     printf("======== %s ========\n", name);
     for(int i = 1; i <= dimension.get_row(); i++){
-        printf("%1.2e\n", at(i));
+        printf("%1.4e\n", at(i));
+    }
+    printf("======== %s ========\n", name);
+}
+
+void Vector::show5d(const char *name) {
+    printf("======== %s ========\n", name);
+    for(int i = 1; i <= dimension.get_row(); i++){
+        printf("%1.5e\n", at(i));
     }
     printf("======== %s ========\n", name);
 }
@@ -164,7 +172,7 @@ void Vector::show4d(const char *name) {
 void Vector::show6d(const char *name) {
     printf("======== %s ========\n", name);
     for(int i = 1; i <= dimension.get_row(); i++){
-        printf("%1.2e\n", at(i));
+        printf("%1.6e\n", at(i));
     }
     printf("======== %s ========\n", name);
 }
@@ -172,7 +180,7 @@ void Vector::show6d(const char *name) {
 void Vector::show8d(const char *name) {
     printf("======== %s ========\n", name);
     for(int i = 1; i <= dimension.get_row(); i++){
-        printf("%1.2e\n", at(i));
+        printf("%1.8e\n", at(i));
     }
     printf("======== %s ========\n", name);
 }
@@ -180,7 +188,7 @@ void Vector::show8d(const char *name) {
 void Vector::show10d(const char *name) {
     printf("======== %s ========\n", name);
     for(int i = 1; i <= dimension.get_row(); i++){
-        printf("%1.2e\n", at(i));
+        printf("%1.12e\n", at(i));
     }
     printf("======== %s ========\n", name);
 }

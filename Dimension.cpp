@@ -21,7 +21,7 @@ int Dimension::get_col() const {
 }
 
 bool Dimension::include(int i, int j) const {
-    return this->row == i && this->col == j;
+    return (this->row >= i && this->col >= j);
 }
 
 bool Dimension::equals_to(Dimension comparer) const {
@@ -45,7 +45,7 @@ bool Dimension::is_initialized() const {
 }
 
 void Dimension::show(const char *name) const {
-    printf("[%s] Dimension is (%d, %d)", name, this->row, this->col);
+    printf("[%s] Dimension is (%d, %d)\n", name, this->row, this->col);
 }
 
 

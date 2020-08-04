@@ -9,7 +9,7 @@ Matrix::Matrix() = default;
 
 Matrix::Matrix(std::vector<std::vector<double>> array) {
     this->dimension = Dimension(array.size(), array[0].size());
-    this->mat_array = std::move(array);
+    this->mat_array = array;
 }
 
 Matrix::Matrix(Dimension dimension) {

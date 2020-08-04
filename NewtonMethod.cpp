@@ -24,39 +24,58 @@ void NewtonMethod::set_convergence_condition(double condition) {
 
 void NewtonMethod::run(int max_iteration, ConvergenceDetectionMethod method) {
     bool converged = false;
-    for(int i = 0; i <= max_iteration; i++) {
+    for(int i = 0; i < max_iteration; i++) {
         switch (method) {
             case ERROR:
                 if (abs(this->x - this->x_old) < this->convergence_condition) {
                     this->approx_root = this->x;
                     converged = true;
-                    break;
                 }
                 break;
             case RELATIVE_ERROR:
                 if (abs((this->x - this->x_old) / this->x) < this->convergence_condition) {
                     this->approx_root = this->x;
                     converged = true;
-                    break;
                 }
                 break;
             case RESIDUAL:
                 if (abs(function(this->x_old)) < this->convergence_condition) {
                     this->approx_root = this->x;
                     converged = true;
-                    break;
                 }
                 break;
         }
-        if (converged || (i == max_iteration)) {
+        if (converged) {
             break;
         }
         this->x_old = this->x;
         this->x = this->x_old - (function(this->x_old) / dfunction(this->x_old));
         this->repeated_count++;
+        if(i == max_iteration - 1){
+            switch (method) {
+                case ERROR:
+                    if (abs(this->x - this->x_old) < this->convergence_condition) {
+                        this->approx_root = this->x;
+                        converged = true;
+                    }
+                    break;
+                case RELATIVE_ERROR:
+                    if (abs((this->x - this->x_old) / this->x) < this->convergence_condition) {
+                        this->approx_root = this->x;
+                        converged = true;
+                    }
+                    break;
+                case RESIDUAL:
+                    if (abs(function(this->x_old)) < this->convergence_condition) {
+                        this->approx_root = this->x;
+                        converged = true;
+                    }
+                    break;
+            }
+        }
     }
 
-    if (repeated_count == max_iteration) {
+    if (!converged) {
         printf("[NewtonMethod] Did not converged in condition below. Repeated [%d] times.\n", this->repeated_count);
         printf("ConvergenceCondition : %1.6e\n", this->convergence_condition);
         printf("InitialValue : %1.6e\n", this->initial_value);
