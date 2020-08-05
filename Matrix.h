@@ -26,6 +26,14 @@ public:
 
     void scale(double factor);
 
+    Matrix transpose();
+
+    Matrix upper_triangular();
+    Matrix lower_triangular();
+
+    bool is_square();
+    bool is_symmetric();
+
     Matrix operator + (Matrix right);
     Matrix operator - (Matrix right);
 
@@ -37,6 +45,9 @@ public:
     void show6d(const char *name);
     void show8d(const char *name);
     void show10d(const char *name);
+
+    static Matrix zeros(Dimension dimension);
+    static Matrix ones(Dimension dimension);
 
 };
 

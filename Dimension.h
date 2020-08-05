@@ -18,6 +18,7 @@ public:
     bool include(int row, int col) const;
     bool equals_to(Dimension comparer) const;
     bool is_vector() const;
+    bool is_square() const;
     bool can_multiply_from_right(Dimension right) const;
     bool can_multiply_from_left(Dimension left) const;
     bool is_initialized() const ;

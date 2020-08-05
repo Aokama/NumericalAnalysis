@@ -54,6 +54,14 @@ void Vector::scale(double factor) {
    }
 }
 
+Matrix Vector::transpose() {
+    Matrix result = Matrix(Dimension(1, this->dimension.get_row()));
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        result.set(1, i, at(i));
+    }
+    return result;
+}
+
 double Vector::norm(int n) {
     if(n == 0){
         double max = 0;

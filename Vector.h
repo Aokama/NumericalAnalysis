@@ -25,6 +25,8 @@ public:
     void set(int i, double value);
     void scale(double factor);
 
+    Matrix transpose();
+
     double norm(int n);
 
     double dot(const Vector& target);

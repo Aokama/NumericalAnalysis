@@ -32,6 +32,9 @@ bool Dimension::is_vector() const {
     return this->col == 1;
 }
 
+bool Dimension::is_square() const {
+    return this->row == this->col;
+}
 bool Dimension::can_multiply_from_right(Dimension right) const {
     return this->col == right.get_row();
 }

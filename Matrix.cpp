@@ -48,6 +48,67 @@ void Matrix::scale(double factor) {
     }
 }
 
+Matrix Matrix::transpose() {
+    Matrix result = Matrix(this->dimension);
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        for(int j = 1; j <= this->dimension.get_col(); j++){
+            result.set(i, j, at(j, i));
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::upper_triangular() {
+    Matrix result = Matrix(this->dimension);
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        for(int j = 1; j <= this->dimension.get_col(); j){
+            if(i <= j){
+                result.set(i, j, at(i, j));
+            }
+            else{
+                result.set(i, j, 0.0);
+            }
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::lower_triangular() {
+    Matrix result = Matrix(this->dimension);
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        for(int j = 1; j <= this->dimension.get_col(); j){
+            if(i >= j){
+                result.set(i, j, at(i, j));
+            }
+            else{
+                result.set(i, j, 0.0);
+            }
+        }
+    }
+    return result;
+}
+
+bool Matrix::is_square() {
+    return this->dimension.is_square();
+}
+
+bool Matrix::is_symmetric() {
+    if(!is_square()){
+        return false;
+    }
+    else{
+        bool symmetric = true;
+        for(int i = 1; i <= this->dimension.get_row(); i++){
+            for(int j = 1; j <= this->dimension.get_col(); j++){
+                if(at(i, j) != at(j, i)){
+                    symmetric = false;
+                }
+            }
+        }
+        return symmetric;
+    }
+}
+
 Matrix Matrix::operator+(Matrix right) {
     if(!this->dimension.equals_to(right.get_dimension())){
         printf("Matrix::operator + (Matrix) caused exception related to illegal arguments.\n");
@@ -183,4 +244,24 @@ void Matrix::show10d(const char *name) {
         printf("\n");
     }
     printf("======== %s ========\n", name);
+}
+
+Matrix Matrix::zeros(Dimension dimension) {
+    Matrix result = Matrix(dimension);
+    for(int i = 1; i <= dimension.get_row(); i++){
+        for(int j = 1; j <= dimension.get_col(); j++){
+            result.set(i, j, 0);
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::ones(Dimension dimension) {
+    Matrix result = Matrix(dimension);
+    for(int i = 1; i <= dimension.get_row(); i++){
+        for(int j = 1; j <= dimension.get_col(); j++){
+            result.set(i, j, 1);
+        }
+    }
+    return result;
 }

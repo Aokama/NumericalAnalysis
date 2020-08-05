@@ -2,11 +2,13 @@
 #include "Vector.h"
 
 #include "GaussianElimination.h"
+#include "CholeskyDecomposition.h"
 
 #include <math.h>
 
 int main() {
 
+    /*
     Matrix A_6 = Matrix({
                               {-2, 4.0/3, 0, 0, 0},
                               {2.0/3, -2, 4.0/3, 0, 0},
@@ -114,6 +116,31 @@ int main() {
     ge_comb.get_solution().show5d("Solution Comb");
 
     (A_comb * ge_comb.get_solution()).show5d("ss");
+    */
+
+    Matrix A = Matrix({
+                              {9, 3, 6},
+                              {3, 5, 4},
+                              {6, 4, 6}
+    });
+
+    Vector b = Vector({
+        12,
+        2,
+        8
+    });
+
+    CholeskyDecomposition dec = CholeskyDecomposition(A);
+    Matrix L = dec.decompose();
+    L.show4d("L");
+
+    A.show2d("A");
+    (L * L.transpose()).show2d("L * L^t");
+
+    GaussianElimination ge = GaussianElimination(A, b);
+    ge.forward_elimination(false);
+    ge.backward_substitution(false);
+    ge.get_solution().show4d("sol");
 
     return 0;
 
