@@ -19,7 +19,7 @@ public:
     GaussSeidelMethod();
     GaussSeidelMethod(Matrix A, Vector b);
     void set_initial_vector(Vector x);
-    void set_epsilon(double epsilon);
+    void set_convergence_condition(double epsilon);
     void run(int max_iteration, bool is_debug);
     Vector get_solution();
 };

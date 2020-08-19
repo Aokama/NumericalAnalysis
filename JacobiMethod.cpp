@@ -18,7 +18,7 @@ void JacobiMethod::set_initial_vector(Vector x) {
     this->x_old = this->x;
 }
 
-void JacobiMethod::set_epsilon(double epsilon) {
+void JacobiMethod::set_convergence_condition(double epsilon) {
     this->epsilon = epsilon;
 }
 

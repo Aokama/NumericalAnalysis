@@ -18,7 +18,7 @@ void GaussSeidelMethod::set_initial_vector(Vector x) {
     this->x_old = this->x;
 }
 
-void GaussSeidelMethod::set_epsilon(double epsilon) {
+void GaussSeidelMethod::set_convergence_condition(double epsilon) {
     this->epsilon = epsilon;
 }
 
