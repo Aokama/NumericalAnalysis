@@ -119,6 +119,23 @@ double Vector::dot(Matrix target) {
     }
 }
 
+
+int Vector::hamming_distance(Vector target) {
+    if(!this->dimension.equals_to(target.get_dimension())){
+        printf("Both dimensions should equal to each other.\n");
+        return -1;
+    }
+    else{
+        int c = 0;
+        for(int i = 1; i <= this->dimension.get_row(); i++){
+            if(at(i) == target.at(i)){
+                c++;
+            }
+        }
+        return c;
+    }
+}
+
 Vector Vector::operator+(const Vector& right) {
     if(!this->dimension.equals_to(right.get_dimension())){
         printf("Vector::operator + (Vector) caused exception related to illegal arguments.\n");
@@ -200,4 +217,3 @@ void Vector::show10d(const char *name) {
     }
     printf("======== %s ========\n", name);
 }
-

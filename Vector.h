@@ -32,6 +32,8 @@ public:
     double dot(const Vector& target);
     double dot(Matrix target);
 
+    int hamming_distance(Vector target);
+
     Vector operator + (const Vector& right);
     Vector operator - (const Vector& right);
 
