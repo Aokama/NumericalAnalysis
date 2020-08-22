@@ -4,6 +4,8 @@
 
 #include "Matrix.h"
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
 
 Matrix::Matrix() = default;
 
@@ -244,6 +246,17 @@ void Matrix::show10d(const char *name) {
         printf("\n");
     }
     printf("======== %s ========\n", name);
+}
+
+void Matrix::save(const char *filename) {
+    std::ofstream file(filename);
+    for(int i = 1; i <= dimension.get_row(); i++){
+        for(int j = 1; j <= dimension.get_col(); j++){
+            file << std::fixed << at(i, j) << "\t";
+        }
+        file << "\n";
+    }
+    file.close();
 }
 
 Matrix Matrix::zeros(Dimension dimension) {

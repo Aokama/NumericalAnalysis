@@ -46,6 +46,8 @@ public:
     void show8d(const char *name);
     void show10d(const char *name);
 
+    void save(const char *filename);
+
     static Matrix zeros(Dimension dimension);
     static Matrix ones(Dimension dimension);
 

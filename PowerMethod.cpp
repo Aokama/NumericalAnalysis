@@ -58,6 +58,6 @@ Vector PowerMethod::get_eigen_vector() {
 }
 
 double PowerMethod::get_spectral_radius() {
-    return lambda;
+    return abs(lambda);
 }
 
