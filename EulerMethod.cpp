@@ -7,7 +7,6 @@
 
 EulerMethod::EulerMethod() = default;
 
-
 EulerMethod::EulerMethod(double (*dy)(double, double), int max_count) {
     this->function = dy;
     this->mat_y = Matrix(Dimension(max_count + 1, 2));

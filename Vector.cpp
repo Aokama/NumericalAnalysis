@@ -75,7 +75,7 @@ double Vector::norm(int n) {
         for(int i = 1; i <= this->dimension.get_row(); i++){
             sum += pow(abs(at(i)), n);
         }
-        return pow(sum, 1 / n);
+        return pow(sum, 1.0 / n);
     }
     else{
         printf("Vector::norm(int) caused exception related to illegal arguments.\n");
