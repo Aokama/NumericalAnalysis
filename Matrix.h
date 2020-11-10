@@ -26,6 +26,12 @@ public:
 
     void scale(double factor);
 
+    void flip_row(int a, int b);
+
+    void flip_col(int a, int b);
+
+    double norm(int n);
+
     Matrix transpose();
 
     Matrix upper_triangular();
@@ -42,9 +48,12 @@ public:
 
     void show2d(const char *name);
     void show4d(const char *name);
+    void show5d(const char *name);
     void show6d(const char *name);
     void show8d(const char *name);
     void show10d(const char *name);
+    void show12d(const char *name);
+    void show15d(const char *name);
 
     void save(const char *filename);
 

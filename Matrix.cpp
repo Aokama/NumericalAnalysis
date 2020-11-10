@@ -50,6 +50,28 @@ void Matrix::scale(double factor) {
     }
 }
 
+void Matrix::flip_row(int a, int b) {
+    for(int i = 1; i <= this->dimension.get_col(); i++){
+        double temp = at(b, i);
+        set(b, i, at(a, i));
+        set(a, i, temp);
+    }
+}
+
+void Matrix::flip_col(int a, int b) {
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        double temp = at(i, b);
+        set(i, b, at(i, a));
+        set(i, a, temp);
+    }
+}
+
+//n = 0 means infinity norm
+[[deprecated]]
+double Matrix::norm(int n) {
+    return 0;
+}
+
 Matrix Matrix::transpose() {
     Matrix result = Matrix(this->dimension);
     for(int i = 1; i <= this->dimension.get_row(); i++){
@@ -215,6 +237,17 @@ void Matrix::show4d(const char *name) {
     printf("======== %s ========\n", name);
 }
 
+void Matrix::show5d(const char *name) {
+    printf("======== %s ========\n", name);
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        for(int j = 1; j <= this->dimension.get_col(); j++){
+            printf("%1.5e\t", at(i, j));
+        }
+        printf("\n");
+    }
+    printf("======== %s ========\n", name);
+}
+
 void Matrix::show6d(const char *name) {
     printf("======== %s ========\n", name);
     for(int i = 1; i <= this->dimension.get_row(); i++){
@@ -242,6 +275,28 @@ void Matrix::show10d(const char *name) {
     for(int i = 1; i <= this->dimension.get_row(); i++){
         for(int j = 1; j <= this->dimension.get_col(); j++){
             printf("%1.10e\t", at(i, j));
+        }
+        printf("\n");
+    }
+    printf("======== %s ========\n", name);
+}
+
+void Matrix::show12d(const char *name) {
+    printf("======== %s ========\n", name);
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        for(int j = 1; j <= this->dimension.get_col(); j++){
+            printf("%1.12e\t", at(i, j));
+        }
+        printf("\n");
+    }
+    printf("======== %s ========\n", name);
+}
+
+void Matrix::show15d(const char *name) {
+    printf("======== %s ========\n", name);
+    for(int i = 1; i <= this->dimension.get_row(); i++){
+        for(int j = 1; j <= this->dimension.get_col(); j++){
+            printf("%1.15e\t", at(i, j));
         }
         printf("\n");
     }

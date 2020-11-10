@@ -5,6 +5,7 @@
 #include "GaussianElimination.h"
 
 #include <utility>
+#include <math.h>
 
 GaussianElimination::GaussianElimination() = default;
 
@@ -16,9 +17,20 @@ GaussianElimination::GaussianElimination(Matrix A, Vector b) {
     this->x = Vector(this->base_b.get_dimension());
 }
 
-void GaussianElimination::forward_elimination(bool debug) {
+void GaussianElimination::forward_elimination(bool pivoting, bool debug) {
     int n = A.get_dimension().get_row();
+
     for(int k = 1; k <= n - 1; k++){
+        if(pivoting){
+            int max_row = k;
+            for(int s = k + 1; s <= base_A.get_dimension().get_row(); s++){
+                if(abs(A.at(s, k)) > abs(A.at(max_row, max_row))){
+                    max_row = s;
+                }
+            }
+            A.flip_row(k, max_row);
+            b.flip(k, max_row);
+        }
         for(int i = k + 1; i <= n; i++){
             double prop = (A.at(i, k) / A.at(k, k));
             for(int j = k + 1; j <= n; j++){

@@ -62,6 +62,12 @@ Matrix Vector::transpose() {
     return result;
 }
 
+void Vector::flip(int a, int b) {
+    double temp = at(a);
+    set(a, at(b));
+    set(b, temp);
+}
+
 double Vector::norm(int n) {
     if(n == 0){
         double max = 0;

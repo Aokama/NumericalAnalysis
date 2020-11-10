@@ -27,6 +27,8 @@ public:
 
     Matrix transpose();
 
+    void flip(int a, int b);
+
     double norm(int n);
 
     double dot(const Vector& target);

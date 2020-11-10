@@ -30,7 +30,7 @@ void EulerMethod::run(int max_iteration, bool debug) {
         mat_y.set(i + 1, 2, mat_y.at(i, 2) + h * function(min_t + h * (i - 1), mat_y.at(i, 2)));
     }
     if(debug){
-        mat_y.show6d("(Col 1 = t(n), Col 2 = y(n))");
+        mat_y.show5d("(Col 1 = t(n), Col 2 = y(n))");
     }
 }
 

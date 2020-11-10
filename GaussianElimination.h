@@ -18,7 +18,7 @@ private:
 public:
     GaussianElimination();
     GaussianElimination(Matrix A, Vector b);
-    void forward_elimination(bool debug);
+    void forward_elimination(bool pivoting, bool debug);
     void backward_substitution(bool debug);
     Vector get_solution();
 };

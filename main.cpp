@@ -2,68 +2,80 @@
 #include "Vector.h"
 
 #include "EulerMethod.h"
-#include "CholeskyDecomposition.h"
+#include "EulerMethodSecondOrder.h"
+#include "HilbertMatrix.h"
+#include "LUDecomposition.h"
+#include "GaussianElimination.h"
 
+#include <stdio.h>
 #include <math.h>
-#include <iostream>
-#include <fstream>
-#include <vector>
 
-/*
-double f1(double t, double y1, double y2){
-    return y2;
+Matrix Jacobian(double x, double y){
+    Matrix ret = Matrix({
+            {2 * x, 2 * y},
+            {x * (3 * x + 4) * pow(y, 2), 2 * (x - 2) * y}
+    });
+    return ret;
 }
 
-double f2(double t, double y1, double y2){
-    int m = 1.0;
-    int o = 1.0;
-    return m * (1 - pow(y1, 2)) * y2 - pow(o, 2) * y1;
+Vector f(double x, double y){
+    Vector ret = Vector(Dimension(2, 1));
+    ret.set(1, pow(x, 2) + pow(y, 2) - 1);
+    ret.set(2, pow(x, 2) * (x + 2) + pow(y, 2) * (x - 2));
+    return ret;
 }
- */
-
 
 int main() {
 
-    Matrix A = Matrix(Dimension(5, 5));
-    for(int i = 1; i <= 5; i++){
-        for(int j = 1; j <= 5; j++){
-            A.set(i, j, (1.0 / (i + j - 1)));
+    Vector x_0 = Vector(Dimension(2, 1));
+    x_0.set(1, 1.0);
+    x_0.set(2, 0.5);
+    Vector x_k = Vector(Dimension(2, 1));
+
+    x_k = x_0;
+
+    for(int i = 1; i <= 50; i++){
+        Matrix J = Jacobian(x_k.at(1), x_k.at(2));
+        Vector F = f(x_k.at(1), x_k.at(2));
+        F.scale(-1.0);
+        GaussianElimination ge = GaussianElimination(J, F);
+        ge.forward_elimination(true, false);
+        ge.backward_substitution(false);
+        Vector d = ge.get_solution();
+        x_k = x_k + d;
+
+        Vector comp = f(x_k.at(1), x_k.at(2));
+        if(comp.norm(1) < 1.0e-10){
+            printf("the solution is (%0.5e, %0.5e), Repeated %d times", x_k.at(1), x_k.at(2), i);
+            break;
         }
     }
 
-    CholeskyDecomposition cd = CholeskyDecomposition(A);
-    Matrix L = cd.decompose();
-    L.show2d("Cholesky L");
-
-    (L * L.transpose()).show2d("A");
-
-    A.show2d("A");
 
     /*
+    int N = 1000000;
+    double max_t = 1.0;
+    double min_t = 0.0;
+    double init_Y = 0.0;
+    double h = (max_t - min_t) / N;
 
-    EulerMethodSecondOrder emso = EulerMethodSecondOrder(f1, f2, 60000);
-    emso.set_initial_y1(0);
-    emso.set_initial_y2(2);
-    emso.set_range_t(0, 15);
-    emso.run(60000, true);
-    emso.get_compiled_maxtrix().save("60000.txt");
+    Vector Y = Vector(Dimension(N + 1, 1));
+    Vector x = Vector(Dimension(N + 1, 1));
 
-    for(int i = 1; i <= 10; i++){
+    Y.set(0, init_Y);
+    x.set(0, min_t);
 
-        EulerMethodSecondOrder method = EulerMethodSecondOrder(f1, f2, 100 * i);
-        method.set_initial_y1(0);
-        method.set_initial_y2(2);
-        method.set_range_t(0, 5);
-        method.run(100 * i, true);
-        std::string s1 = "VDP-T15-";
-        std::string s2 = std::to_string(100 * i);
-        std::string s3 = ".txt";
-        method.get_compiled_maxtrix().save((s1 + s2 + s3).c_str());
-
+    for(int i = 0; i <= N; i++){
+        x.set(i + 1, x.at(i) + h);
+        double temp_Y = Y.at(i) + h * function(x.at(i), Y.at(i));
+        Y.set(i + 1, Y.at(i) + (0.5) * h * (function(x.at(i), Y.at(i)) + function(x.at(i + 1), temp_Y)));
     }
 
-     */
+    for(int i = 0; i <= N; i++){
+        printf("%0.15e\t", x.at(i));
+        printf("%0.15e\n", Y.at(i));
+    }
+    */
 
-    return 0;
 
 }
